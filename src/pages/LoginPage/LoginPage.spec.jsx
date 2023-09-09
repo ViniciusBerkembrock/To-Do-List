@@ -11,6 +11,12 @@ jest.mock("firebase/auth", () => {
     };
   });
 
+  const mockNavigate = jest.fn();
+  jest.mock('react-router', () => ({
+    ...jest.requireActual('react-router'),
+    useNavigate: () => mockNavigate
+}))
+
 describe('LoginPage', () => {
 	it('should render correctly', () => {
 		render(<LoginPage/>);

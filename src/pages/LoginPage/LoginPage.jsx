@@ -1,6 +1,6 @@
 import { signInWithPopup, signOut } from "firebase/auth"
 import { auth, googleProvider } from "../../../firebase"
-import { useNavigate } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 
 export function LoginPage() {
 
@@ -9,7 +9,7 @@ export function LoginPage() {
     const signInWithGoogle = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            navigate('/toDoList')
+            navigate("/");
         } catch (err) {
             console.error(err);
         }
