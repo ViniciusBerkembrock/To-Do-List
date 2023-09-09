@@ -25,7 +25,7 @@ describe('LoginPage', () => {
         expect(screen.getByText('Sign Out')).toBeInTheDocument();
 	})
 
-    test("should call the signInWithPopup", () => {
+    it("should call the signInWithPopup", () => {
         render(<LoginPage />);
  
         const signInButton = screen.getByText("Sign In With Google");
@@ -35,12 +35,12 @@ describe('LoginPage', () => {
         expect(signInWithPopup).toHaveBeenCalled();
       });
 
-      test("should call the signOut", () => {
+      it("should call the signOut", () => {
         render(<LoginPage />);
  
-        const signInButton = screen.getByText("Sign Out");
+        const signOutButton = screen.getByText("Sign Out");
         
-        fireEvent.click(signInButton);
+        fireEvent.click(signOutButton);
         
         expect(signOut).toHaveBeenCalled();
       });
