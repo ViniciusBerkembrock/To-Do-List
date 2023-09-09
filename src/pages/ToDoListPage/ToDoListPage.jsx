@@ -29,21 +29,20 @@ export function ToDoListPage() {
         });
     
         return () => unsubscribe();
-      }, []);
-
+    }, []);
+    
     const onSubmitTask = async () => {
-        try{
-            await addDoc(taskCollectionRef, {
-                title: newTaskTitle,
-                description: newTaskDescription,
-                date: newTaskDate,
-                Done: newTaskDone
-            });
-        } catch(err){
-            console.error(err)
-        }
+    try{
+        await addDoc(taskCollectionRef, {
+            title: newTaskTitle,
+            description: newTaskDescription,
+            date: newTaskDate,
+            Done: newTaskDone
+        });
+    } catch(err){
+        console.error(err)
     }
-
+    }
 
 
 
