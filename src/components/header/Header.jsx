@@ -1,8 +1,10 @@
 import { signOut } from "firebase/auth"
+import { useContext } from "react"
+
 import { auth } from "../../../firebase"
-import styles from './Header.module.css'
 import AuthContext from "../../context/AuthContext"
-import { useContext, useEffect } from "react"
+
+import style from './Header.module.css'
 
 export function Header() {
 
@@ -17,14 +19,24 @@ export function Header() {
     }
 
     return(
-        <header className={styles.header}>
+        <header className={style.header}>
             <h1>To Do List</h1>
-
-            <div>
-                <img src={currentUser?.photoURL} alt="" />
-                <span>{currentUser?.displayName}</span>
-                <button onClick={logout}>Logout</button>
+            
+            {currentUser? (
+            <div className={style.profileBox}>
+            <div className={style.profile}> 
+                <img 
+                className={style.avatar} 
+                src={currentUser?.photoURL} 
+                alt="" />
             </div>
+            <span className={style.profileName}>{currentUser?.displayName}</span>
+            <button className={style.logout} onClick={logout}>Logout</button>
+        </div>
+            ) : (
+                <span></span>
+            )}
+
         </header>
     )
 }   
