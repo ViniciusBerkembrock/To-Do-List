@@ -44,6 +44,16 @@ export function ToDoListPage() {
     }
     }
 
+    const deleteTask = async (id) => {
+        try {
+            const taskDoc = doc(db, "tasks", id);
+            await deleteDoc(taskDoc);
+        } catch (err) {
+            console.error(err)
+        }
+         finally {
+        }
+    }   
 
 
 
