@@ -1,0 +1,13 @@
+.display{
+    display: grid;
+    grid-template-columns: 256px 1fr;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.task{
+    background-color: var(--gray-400);
+    padding: 20px;
+    border-radius: 8px;
+    width: 600px;
+}
