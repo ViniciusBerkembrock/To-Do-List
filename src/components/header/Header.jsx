@@ -28,7 +28,7 @@ export function Header() {
                 <img 
                 className={style.avatar} 
                 src={currentUser?.photoURL} 
-                alt="" />
+                alt="Avatar" />
             </div>
             <span className={style.profileName}>{currentUser?.displayName}</span>
             <button className={style.logout} onClick={logout}>Logout</button>
