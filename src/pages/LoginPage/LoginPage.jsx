@@ -2,6 +2,9 @@ import { signInWithPopup, signOut } from "firebase/auth"
 import { auth, googleProvider } from "../../../firebase"
 import { useNavigate  } from "react-router-dom";
 
+import { GoogleLogo } from "phosphor-react";
+import style from './LoginPage.module.css'
+
 export function LoginPage() {
 
     const navigate = useNavigate()
@@ -24,10 +27,10 @@ export function LoginPage() {
     }
     
     return(
-        <div>
-            <button onClick={signInWithGoogle}>Sign In With Google</button>
+        <div className={style.display}>
+            <button className={style.btnSignIn} onClick={signInWithGoogle}> <GoogleLogo/>Sign In With Google</button>
             
-            <button onClick={logout}>Sign Out</button>
+            <button className={style.btnSignOut} onClick={logout}>Sign Out</button>
         </div>
     )
 }
