@@ -9,7 +9,7 @@ export function LoginPage() {
     const signInWithGoogle = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            navigate("/");
+            navigate("/toDoList");
         } catch (err) {
             console.error(err);
         }

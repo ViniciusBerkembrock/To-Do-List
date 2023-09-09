@@ -5,13 +5,16 @@ import { auth } from '../../../firebase'
 export function ToDoListPage() {
 
     useEffect(()=>{
-        console.log(auth.currentUser)
+        // console.log(auth.currentUser)
 }
     )
 
     return(
+        <>
+       
         <div className={style.display}>
              ssssssssss   
         </div>
+        </>
     )
 }
