@@ -6,7 +6,7 @@ import { AuthProvider } from './assets/hooks/AuthProvider/AuthProvider'
 import { LoginPage } from './pages/LoginPage/LoginPage'
 import { ToDoListPage } from './pages/ToDoListPage/ToDoListPage'
 
-import './App.css'
+import styles from './App.module.css'
 
 function App() {
 
@@ -14,13 +14,15 @@ function App() {
     <AuthProvider>
      <BrowserRouter>
       <Header/>
-      <Routes>
-        <Route  path='/' element={<LoginPage/>} />
-        <Route element={<PrivateRoute/>}>
-          <Route element={<ToDoListPage/>} path='/toDoList'/>
-        </Route>
-      </Routes>
-     </BrowserRouter>
+      <div className={styles.wrapper}>
+        <Routes>
+          <Route  path='/' element={<LoginPage/>} />
+          <Route element={<PrivateRoute/>}>
+            <Route element={<ToDoListPage/>} path='/toDoList'/>
+          </Route>
+        </Routes>
+      </div>
+      </BrowserRouter>
     </AuthProvider>
   )
 }
