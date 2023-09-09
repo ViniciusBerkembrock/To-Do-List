@@ -1,6 +1,7 @@
 import { signInWithPopup, signOut } from "firebase/auth"
 import { auth, googleProvider } from "../../../firebase"
 
+
 export function LoginPage() {
 
     const signInWithGoogle = async () => {
