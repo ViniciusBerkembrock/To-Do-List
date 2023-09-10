@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getDocs, getDoc, collection, addDoc, doc, deleteDoc, onSnapshot, updateDoc, query, where } from "firebase/firestore";
+import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 
 import { auth } from '../../../firebase';
 import AuthContext from "../../context/AuthContext";
@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }) => {
               
               if (auth.currentUser && userList != null){
                     const usuario = userList.find((item) => item.email === auth.currentUser.email);
-                    console.log(usuario)
                     const usuarioDoc = doc(db, "users", usuario.id);
                     await updateDoc(usuarioDoc, {online: true})
               }       

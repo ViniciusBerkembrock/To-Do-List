@@ -16,9 +16,12 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-image: url(C:\Users\Usuário\Documents\To-Do-List\src\assets\bg.jpg);
+    background-size: contain; 
+    background-attachment: fixed; 
 }
 
-.newTask, .inputBox{
+.newTask, .inputBox, .searchBox{
     display: flex;
     width: auto;
     flex-direction: column;
@@ -27,9 +30,10 @@
     border-radius: 0.875rem;
     margin-top: 1rem;
     gap: 1rem;
+    align-items: center;
 }
 
-.newTask input, .inputBox input{
+.newTask input, .inputBox input, .searchBox input{
     line-height: 2rem;
     width: 30rem;
     border-radius: 8px;
@@ -40,6 +44,11 @@
 .btnAddTask{
     width: 30rem;
 }
+
+.searchBox h1{
+    font-size: 1.2rem;
+}
+
 
 
 

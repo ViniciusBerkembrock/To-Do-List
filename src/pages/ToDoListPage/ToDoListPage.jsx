@@ -18,6 +18,9 @@ export function ToDoListPage() {
     const [newTaskDate, setNewTaskDate] = useState();
     
     const [taskList, setTaskList] = useState([]);
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [taskListFiltered, setTaskListFiltered] = useState([]);
     
     useEffect(() => {
         const unsubscribe = onSnapshot(taskCollectionRef, (snapshot) => {
@@ -30,6 +33,18 @@ export function ToDoListPage() {
     
         return () => unsubscribe();
     }, []);
+
+    useEffect(() => {
+        if (searchTerm) {
+            setTaskListFiltered(
+              taskList.filter((task) =>
+                task.title.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+            );
+        } else {
+            setTaskListFiltered(taskList);
+        }
+    },[searchTerm, taskList]);
     
     const onSubmitTask = async () => {
         try{
@@ -76,7 +91,16 @@ export function ToDoListPage() {
                     </button>
                 </div>
 
-                <Task taskList={taskList}/>  
+                <div className={style.searchBox}>
+                    <h1>Pesquisar Tarefa</h1>
+                    <input 
+                        type="text" 
+                        value={searchTerm} 
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder='Titulo da tarefa...'/>
+                </div>
+
+                <Task taskList={taskListFiltered}/>
 
             </div>
         </div>
