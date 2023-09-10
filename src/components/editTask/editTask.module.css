@@ -1,0 +1,69 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blurbackground {
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+ 
+.modal {
+  position: fixed;
+  z-index: 2;
+  background-color: var(--gray-700);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.inputBox{
+  display: flex;
+  width: auto;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: var(--gray-600);
+  border-radius: 0.875rem;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.inputBox input{
+  line-height: 2rem;
+  width: 30rem;
+  border-radius: 8px;
+  border: 1px solid var(--green-300);
+  padding: 0.25rem;
+}
+
+.btnBox{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn{
+  display: flex;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 0 solid rgba(0, 0, 0, 0);
+}
+
+.btn:focus{
+  box-shadow: 0 0 0 0px var(--green-500);
+}
+

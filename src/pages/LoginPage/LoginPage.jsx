@@ -28,7 +28,8 @@ export function LoginPage() {
             await addDoc(userCollectionRef, {
                 name: result.user.displayName, 
                 email: result.user.email, 
-                online: true})
+                online: true,
+                photoURL: result.user.photoURL})
             navigate('/toDoList');
           } else {
             navigate('/toDoList');

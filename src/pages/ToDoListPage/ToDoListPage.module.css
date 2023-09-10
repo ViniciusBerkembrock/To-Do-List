@@ -1,9 +1,14 @@
 .display{
     display: grid;
     width: 100vw;
-    grid-template-columns: 256px 1fr;
+    grid-template-columns: 300px 1fr;
     gap: 2rem;
     align-items: flex-start;
+}
+
+.teamList{
+    height: 100%;
+    border-right: 3px solid var(--gray-700);
 }
 
 .taskArea{
@@ -13,7 +18,7 @@
     flex-direction: column;
 }
 
-.newTask, .task, .inputBox{
+.newTask, .inputBox{
     display: flex;
     width: auto;
     flex-direction: column;
@@ -22,24 +27,6 @@
     border-radius: 0.875rem;
     margin-top: 1rem;
     gap: 1rem;
-}
-
-.task{
-    gap: 0;
-}
-.header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-}
-
-.header h1{
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
 }
 
 .newTask input, .inputBox input{
@@ -54,101 +41,6 @@
     width: 30rem;
 }
 
-.taskTitle{
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-}
 
-.taskDescription{
-    border: 2px solid var(--gray-700);
-    border-radius: 0.35rem;
-    padding: 1rem;
-    width: 30rem;
-    background-color: var(--gray-800);
-}
 
-.taskDate{
-    font-size: 0.875rem;
-    padding: 0.5rem;
-    margin: 10;
-}
-
-.btnDone, .btnDone:focus, .btn, .btn:focus{
-    border: 0 solid rgba(0, 0, 0, 0);
-}
-
-.btnBox{
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    gap: 1rem;
-    margin-top: 0.5rem;
-}
-
-.btn{
-    display: flex;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-}
-
-.btnDone{
-    display: flex;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-}
-
-.btn:focus, .btnDone:focus{
-    box-shadow: 0 0 0 0px var(--green-500);
-}
-
-.checkDone, .checkDoneFinished{
-    font-size: 4rem;
-    height: 200px;
-    height: 200px;
-}
-
-.checkDoneFinished{
-    color: var(--green-300);
-}
-
-.blurbackground {
-    backdrop-filter: blur(8px);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal {
-    position: fixed;
-    z-index: 2;
-    background-color: var(--gray-700);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  }
-.inputBox{
-    display: flex;
-    flex-direction: column;
-
-}
-
-.lock{
-    color: var(--red-400);
-}
 
