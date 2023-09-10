@@ -1,13 +1,94 @@
 .display{
     display: grid;
+    width: 100vw;
     grid-template-columns: 256px 1fr;
     gap: 2rem;
     align-items: flex-start;
 }
 
-.task{
-    background-color: var(--gray-400);
-    padding: 20px;
-    border-radius: 8px;
-    width: 600px;
+.taskArea{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
+
+.newTask, .task{
+    display: flex;
+    width: auto;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: var(--gray-600);
+    border-radius: 0.875rem;
+    margin-top: 1rem;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.newTask input{
+    margin-bottom: 1rem;
+    line-height: 2rem;
+    width: 30rem;
+    border-radius: 8px;
+    border: 1px solid var(--green-300);
+    padding: 0.25rem;
+}
+
+.btnAddTask{
+    width: 30rem;
+}
+
+.taskTitle{
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    line-height: 0;
+}
+
+.taskDescription{
+    border: 2px solid var(--gray-700);
+    border-radius: 0.35rem;
+    padding: 1rem;
+    width: 30rem;
+    background-color: var(--gray-800);
+}
+
+.taskDate{
+    font-size: 0.875rem;
+    padding: 0.5rem;
+    /* line-height: 0; */
+    margin: 10;
+}
+
+.btnDone, .btnDone:focus, .btn, .btn:focus{
+    border: 0 solid rgba(0, 0, 0, 0);
+}
+
+.btnBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+
+.checkDone, .checkDoneFinished{
+    font-size: 2rem;
+}
+
+.checkDoneFinished{
+    color: var(--green-300);
+}
+
