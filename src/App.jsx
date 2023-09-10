@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-// import { AuthProvider } from './assets/hooks/AuthProvider/AuthProvider'
 import  PrivateRoute  from './components/privateRoute/PrivateRoute'
 import { Header } from './components/header/Header'
-import { AuthProvider } from './assets/hooks/AuthProvider/AuthProvider'
+import { AuthProvider } from './hooks/AuthProvider/AuthProvider'
 import { LoginPage } from './pages/LoginPage/LoginPage'
 import { ToDoListPage } from './pages/ToDoListPage/ToDoListPage'
 

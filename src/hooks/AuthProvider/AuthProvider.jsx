@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { getDocs, getDoc, collection, addDoc, doc, deleteDoc, onSnapshot, updateDoc, query, where } from "firebase/firestore";
 
-import { auth } from '../../../../firebase';
-import AuthContext from "../../../context/AuthContext";
-import { db } from "../../../../firebase"
+import { auth } from '../../../firebase';
+import AuthContext from "../../context/AuthContext";
+import { db } from "../../../firebase"
 
 export const AuthProvider = ({ children }) => {
 
