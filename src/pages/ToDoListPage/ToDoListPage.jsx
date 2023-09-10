@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { auth } from '../../../firebase'
 import { db } from "../../../firebase"
 
-import { Trash, Lock, LockOpen, Square, CheckSquare, PencilSimpleLine} from "phosphor-react";
+import { Trash, Lock, LockOpen, Square, CheckSquare, PencilSimpleLine, Check, X} from "phosphor-react";
 
 import style from './ToDoListPage.module.css'
 
@@ -18,7 +18,11 @@ export function ToDoListPage() {
     const [newTaskDone, setNewTaskDone] = useState(false);
     const [isBlock, setIsBlock] = useState(false);
 
+    const [editingTask, setEditingTask] = useState(null);
+    
     const taskCollectionRef = collection(db, "tasks");
+
+
 
 
     useEffect(() => {
@@ -40,8 +44,8 @@ export function ToDoListPage() {
             title: newTaskTitle,
             description: newTaskDescription,
             date: newTaskDate,
-            Done: false,
-            Block: false,
+            done: false,
+            block: false,
         });
     } catch(err){
         console.error(err)
@@ -62,23 +66,27 @@ export function ToDoListPage() {
     const handleFinishTask = async (id) => {
         try {
             const taskDoc = doc(db, "tasks", id);
-            await updateDoc(taskDoc, {Done: true});
+            const task = await getDoc(taskDoc);
+            await updateDoc(taskDoc, {done: !task.data().done});
         } catch (err) {
             console.error(err);
         }
     }
 
-    const handleFinishTask = async (id) => {
+    
+    const handleSaveEdit = async () => {
         try {
-            const taskDoc = doc(db, "tasks", id);
-            await updateDoc(taskDoc, {Done: true});
+          const taskDoc = doc(db, "tasks", editingTask.id);
+          await updateDoc(taskDoc, {
+            title: editingTask.title,
+            description: editingTask.description,
+            date: editingTask.date,
+          });
+          setEditingTask(null);
         } catch (err) {
-            console.error(err);
+          console.error(err);
         }
-    }
-
-
-
+    };
 
     return(
         <div className={style.display}>
@@ -119,7 +127,7 @@ export function ToDoListPage() {
                             className={style.taskTitle}>{task.title}</h1>
                         <span
                             onClick={() => handleFinishTask(task.id)}
-                            className={style.Done}>{newTaskDone? <CheckSquare className={style.checkDoneFinished}/> : <Square className={style.checkDone}/>}</span>
+                            className={style.Done}>{task.done? <CheckSquare className={style.checkDoneFinished}/> : <Square className={style.checkDone}/>}</span>
                         </div>
 
                         <span 
@@ -132,7 +140,7 @@ export function ToDoListPage() {
                         <div className={style.btnBox}>
 
                             <button 
-                                onClick={() => deleteTask(task.id)}
+                                onClick={() => setEditingTask(task)}
                                 className={style.btn}><PencilSimpleLine/></button>
 
                             <button 
@@ -140,13 +148,56 @@ export function ToDoListPage() {
                                 className={style.btn}><Trash/></button>
 
                             <button 
-                                onClick={console.log("block")}
+                                onClick={() => setEditingTask(task)}
                                 className={style.btn}>
                                     {isBlock? <Lock/> : <LockOpen/>}                                
                             </button>
                         </div>
                 </div>
             ))}
+
+
+            {editingTask && (
+                <div className={style.overlay}>
+                    <div className={style.blurbackground}/>
+                    <div className={style.modal}>
+                        <h2>Editar Tarefa</h2>
+                        <div className={style.inputBox  }>
+                            <input
+                                type="text"
+                                placeholder="Novo Título"
+                                value={editingTask.title}
+                                onChange={(e) => setEditingTask({ ...editingTask, title: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Nova Descrição"
+                                value={editingTask.description}
+                                onChange={(e) => setEditingTask({ ...editingTask, description: e.target.value })}
+                            />
+                            <input
+                                type="date"
+                                placeholder="Nova Data"
+                                value={editingTask.date}
+                                onChange={(e) => setEditingTask({ ...editingTask, date: e.target.value })}
+                            />
+                        </div>
+                        
+                        <div className={style.btnBox}>
+                            <button 
+                                onClick={handleSaveEdit}
+                                className={style.btn}
+                            ><Check/></button>
+                            <button 
+                                onClick={() => setEditingTask(null)}
+                                className={style.btn}><X/></button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+                    
+
             </div>
         </div>
     )
