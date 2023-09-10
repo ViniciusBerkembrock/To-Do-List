@@ -59,6 +59,23 @@ export function ToDoListPage() {
         }
     }   
 
+    const handleFinishTask = async (id) => {
+        try {
+            const taskDoc = doc(db, "tasks", id);
+            await updateDoc(taskDoc, {Done: true});
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const handleFinishTask = async (id) => {
+        try {
+            const taskDoc = doc(db, "tasks", id);
+            await updateDoc(taskDoc, {Done: true});
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
 
 
