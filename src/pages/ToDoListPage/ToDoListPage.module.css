@@ -35,8 +35,14 @@
     padding: 0.5rem;
 }
 
+.header h1{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
 .newTask input, .inputBox input{
-    /* margin-bottom: 1rem; */
     line-height: 2rem;
     width: 30rem;
     border-radius: 8px;
@@ -50,9 +56,7 @@
 
 .taskTitle{
     font-size: 1.3rem;
-    margin-bottom: 1rem;
-    align-items: center;
-    line-height: 0;
+    margin-bottom: 0.5rem;
 }
 
 .taskDescription{
@@ -66,7 +70,6 @@
 .taskDate{
     font-size: 0.875rem;
     padding: 0.5rem;
-    /* line-height: 0; */
     margin: 10;
 }
 
@@ -89,8 +92,21 @@
     height: 30px;
 }
 
+.btnDone{
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+}
+
+.btn:focus, .btnDone:focus{
+    box-shadow: 0 0 0 0px var(--green-500);
+}
+
 .checkDone, .checkDoneFinished{
-    font-size: 2rem;
+    font-size: 4rem;
+    height: 200px;
+    height: 200px;
 }
 
 .checkDoneFinished{
@@ -131,3 +147,8 @@
     flex-direction: column;
 
 }
+
+.lock{
+    color: var(--red-400);
+}
+
