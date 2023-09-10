@@ -1,8 +1,10 @@
+import { getDocs, getDoc, collection, addDoc, doc, deleteDoc, onSnapshot, updateDoc, } from "firebase/firestore";
 import { useEffect, useState } from 'react'
+
 import { auth } from '../../../firebase'
 import { db } from "../../../firebase"
-import { getDocs, getDoc, collection, addDoc, doc, deleteDoc,onSnapshot } from "firebase/firestore";
 
+import { Trash, Lock, LockOpen, Square, CheckSquare, PencilSimpleLine} from "phosphor-react";
 
 import style from './ToDoListPage.module.css'
 
@@ -14,6 +16,7 @@ export function ToDoListPage() {
     const [newTaskDescription, setNewTaskDescription] = useState("");
     const [newTaskDate, setNewTaskDate] = useState();
     const [newTaskDone, setNewTaskDone] = useState(false);
+    const [isBlock, setIsBlock] = useState(false);
 
     const taskCollectionRef = collection(db, "tasks");
 
@@ -37,7 +40,8 @@ export function ToDoListPage() {
             title: newTaskTitle,
             description: newTaskDescription,
             date: newTaskDate,
-            Done: newTaskDone
+            Done: false,
+            Block: false,
         });
     } catch(err){
         console.error(err)
@@ -49,7 +53,7 @@ export function ToDoListPage() {
             const taskDoc = doc(db, "tasks", id);
             await deleteDoc(taskDoc);
         } catch (err) {
-            console.error(err)
+            console.error(err);
         }
          finally {
         }
@@ -57,12 +61,15 @@ export function ToDoListPage() {
 
 
 
+
+
     return(
         <div className={style.display}>
+
             <div>AQUI VAI FICAR OS E-MAILS</div>
 
-            <div className={style.taskBox}>        
-                <div className={style.task}>
+            <div className={style.taskArea}>        
+                <div className={style.newTask}>
 
                     <input 
                         type="text" 
@@ -80,37 +87,47 @@ export function ToDoListPage() {
                         placeholder="Descrição"
                         onChange={(e) => setNewTaskDate(e.target.value)}
                         />        
-                    <input 
-                        type="checkbox" 
-                        checked={newTaskDone}
-                        onChange={(e) => setNewTaskDone(e.target.checked)}
-                        />
-                    <label htmlFor="">Finalizado</label>
-                    <button onClick={onSubmitTask}>Salvar Tarefa</button>
+                    <button 
+                        onClick={onSubmitTask}
+                        className={style.btnAddTask}>Salvar Tarefa</button>
                 </div>
 
                 {taskList.map((task) => (
                     <div 
                         key={task.id}
                         className={style.task}>
-
+                        
+                        <div className={style.header}>
                         <h1 
                             className={style.taskTitle}>{task.title}</h1>
+                        <span
+                            onClick={() => handleFinishTask(task.id)}
+                            className={style.Done}>{newTaskDone? <CheckSquare className={style.checkDoneFinished}/> : <Square className={style.checkDone}/>}</span>
+                        </div>
 
                         <span 
-                            className={style.taskDescription}>Descrição: {task.description}</span>
+                            className={style.taskDate}>Conclusão aguardada: {task.date}</span>
 
                         <span 
-                            className={style.taskDate}>{task.date}</span>
+                            className={style.taskDescription}>{task.description}</span>
 
-                        <h3 
-                            className={style.done}>Finalizado: {task.done == true? "Sim" : "Não"}</h3>
+                        
+                        <div className={style.btnBox}>
 
-                        <button 
-                            onClick={() => deleteTask(task.id)}>Deletar</button>
+                            <button 
+                                onClick={() => deleteTask(task.id)}
+                                className={style.btn}><PencilSimpleLine/></button>
 
-                        <button 
-                            onClick={() => deleteTask(task.id)}>Block</button>
+                            <button 
+                                onClick={() => deleteTask(task.id)}
+                                className={style.btn}><Trash/></button>
+
+                            <button 
+                                onClick={console.log("block")}
+                                className={style.btn}>
+                                    {isBlock? <Lock/> : <LockOpen/>}                                
+                            </button>
+                        </div>
                 </div>
             ))}
             </div>
