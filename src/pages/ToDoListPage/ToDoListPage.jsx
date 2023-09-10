@@ -1,5 +1,5 @@
 import { getDocs, getDoc, collection, addDoc, doc, deleteDoc, onSnapshot, updateDoc, } from "firebase/firestore";
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { auth } from '../../../firebase'
 import { db } from "../../../firebase"
@@ -7,8 +7,11 @@ import { db } from "../../../firebase"
 import { Trash, Lock, LockOpen, Square, CheckSquare, PencilSimpleLine, Check, X} from "phosphor-react";
 
 import style from './ToDoListPage.module.css'
+import AuthContext from "../../context/AuthContext";
 
 export function ToDoListPage() {
+
+    const { currentUser } = useContext(AuthContext);
 
     const [taskList, setTaskList] = useState([]);
 
@@ -46,6 +49,7 @@ export function ToDoListPage() {
             date: newTaskDate,
             done: false,
             block: false,
+            uid: currentUser.uid
         });
     } catch(err){
         console.error(err)
@@ -73,6 +77,16 @@ export function ToDoListPage() {
         }
     }
 
+    const handleBlockTask = async (id) => {
+        try {
+            const taskDoc = doc(db, "tasks", id);
+            const task = await getDoc(taskDoc);
+            await updateDoc(taskDoc, {block: !task.data().block});
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     
     const handleSaveEdit = async () => {
         try {
@@ -85,8 +99,11 @@ export function ToDoListPage() {
           setEditingTask(null);
         } catch (err) {
           console.error(err);
+          setEditingTask(null);
         }
     };
+
+
 
     return(
         <div className={style.display}>
@@ -107,6 +124,7 @@ export function ToDoListPage() {
                         placeholder="Descrição"
                         onChange={(e) => setNewTaskDescription(e.target.value)}
                         />  
+
                     <input 
                         type="date" 
                         placeholder="Descrição"
@@ -125,9 +143,13 @@ export function ToDoListPage() {
                         <div className={style.header}>
                         <h1 
                             className={style.taskTitle}>{task.title}</h1>
-                        <span
+                        <button
                             onClick={() => handleFinishTask(task.id)}
-                            className={style.Done}>{task.done? <CheckSquare className={style.checkDoneFinished}/> : <Square className={style.checkDone}/>}</span>
+                            disabled={task.uid !== currentUser.uid && task.block == true}
+                            className={style.btnDone}>
+                                {task.done? <CheckSquare className={style.checkDoneFinished}/> 
+                                : <Square className={style.checkDone}/>}
+                        </button>
                         </div>
 
                         <span 
@@ -140,17 +162,20 @@ export function ToDoListPage() {
                         <div className={style.btnBox}>
 
                             <button 
+                                disabled={task.uid !== currentUser.uid && task.block == true}
                                 onClick={() => setEditingTask(task)}
                                 className={style.btn}><PencilSimpleLine/></button>
 
                             <button 
+                                disabled={task.uid !== currentUser.uid && task.block == true}
                                 onClick={() => deleteTask(task.id)}
                                 className={style.btn}><Trash/></button>
 
                             <button 
-                                onClick={() => setEditingTask(task)}
+                                disabled={task.uid !== currentUser.uid}
+                                onClick={() => handleBlockTask(task.id)}
                                 className={style.btn}>
-                                    {isBlock? <Lock/> : <LockOpen/>}                                
+                                    {task.block? <Lock className={style.lock}/> : <LockOpen/>}                                
                             </button>
                         </div>
                 </div>
