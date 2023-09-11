@@ -35,7 +35,7 @@ describe('Header', () => {
             <Header />
           </AuthContext.Provider>
         );
-        const headerElement = screen.getByText("To Do List");
+        const headerElement = screen.getByText("TO DO LIST");
         expect(headerElement).toBeInTheDocument();
       });
 
