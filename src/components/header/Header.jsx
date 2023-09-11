@@ -1,17 +1,31 @@
 import { signOut } from "firebase/auth"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 
 import { auth } from "../../../firebase"
 import AuthContext from "../../context/AuthContext"
+import useSetStatusUser from "../../hooks/useSetStatusUser/useSetStatusUser"
 
 import style from './Header.module.css'
 
 export function Header() {
 
     const { currentUser } = useContext(AuthContext);
+    const { setStatusUser} = useSetStatusUser();
+
+    useEffect(() => {
+        const handleBeforeUnload = async () => {
+           await setStatusUser(false);
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+      }, [setStatusUser]);
 
     const logout = async () => {
         try {
+            setStatusUser(false)
             await signOut(auth);
         } catch (err) {
             console.error(err);

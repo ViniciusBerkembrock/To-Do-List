@@ -7,6 +7,7 @@ import TeamList from "../../components/teamList/TeamList"
 import Task from "../../components/task/Task";
 
 import style from './ToDoListPage.module.css'
+import useSetStatusUser from '../../hooks/useSetStatusUser/useSetStatusUser';
 
 export function ToDoListPage() {
     
@@ -22,6 +23,8 @@ export function ToDoListPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [taskListFiltered, setTaskListFiltered] = useState([]);
     const [filterDone, setFilterDone] = useState(null)
+
+
     
     useEffect(() => {
         const unsubscribe = onSnapshot(taskCollectionRef, (snapshot) => {
