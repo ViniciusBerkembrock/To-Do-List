@@ -1,19 +1,18 @@
+import { getDocs, collection, addDoc, query, where } from "firebase/firestore";
 import { signInWithPopup, signOut } from "firebase/auth"
-import { auth, googleProvider } from "../../../firebase"
 import { useNavigate  } from "react-router-dom";
-
 import { GoogleLogo } from "phosphor-react";
-import style from './LoginPage.module.css'
-import { getDocs, getDoc, collection, addDoc, doc, deleteDoc, onSnapshot, query, where, updateDoc, } from "firebase/firestore";
 
-import { db } from "../../../firebase"
-import { useState } from "react";
+
+import useSetStatusUser from "../../hooks/useSetStatusUser/useSetStatusUser";
+import { auth, googleProvider, db } from "../../../firebase"
+
+import style from './LoginPage.module.css'
 
 export function LoginPage() {
 
     const userCollectionRef = collection(db, "users");
-
-    const [userList, setUserList] = useState([])
+    const { setStatusUser} = useSetStatusUser();
 
     const navigate = useNavigate()
 
@@ -41,6 +40,7 @@ export function LoginPage() {
 
     const logout = async () => {
         try {
+            setStatusUser(false);
             await signOut(auth);
         } catch (err) {
             console.error(err);
