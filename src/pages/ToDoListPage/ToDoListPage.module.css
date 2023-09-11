@@ -24,7 +24,7 @@
 }
 
 
-.newTask, .inputBox, .searchBox{
+.newTask, .inputBox, .formNewTask, .searchBox{
     display: flex;
     width: auto;
     flex-direction: column;
@@ -34,6 +34,10 @@
     margin-top: 1rem;
     gap: 1rem;
     align-items: center;
+}
+
+.formNewTask{
+    padding: 0;
 }
 
 .newTask input, textarea, .inputBox input, .searchBox input{
