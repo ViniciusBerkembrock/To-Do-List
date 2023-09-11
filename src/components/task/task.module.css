@@ -57,6 +57,7 @@
 
 .btnDone, .btnDone:focus, .btn, .btn:focus{
     border: 0 solid rgba(0, 0, 0, 0);
+    cursor: pointer;
 }
 
 .btn, .btnDone{
@@ -64,6 +65,7 @@
     justify-content: center;
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 .btn:focus, .btnDone:focus{
@@ -74,6 +76,7 @@
     font-size: 4rem;
     height: 200px;
     height: 200px;
+    cursor: pointer;
 }
 
 .checkDoneFinished{

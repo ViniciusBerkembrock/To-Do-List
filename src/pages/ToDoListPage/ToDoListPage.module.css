@@ -55,6 +55,7 @@
 
 .btnAddTask{
     width: 30rem;
+    cursor: pointer;
 }
 
 .searchBox h1{
@@ -71,17 +72,20 @@
     border-radius: 1rem;
     border: 1px solid var(--green-300);
     overflow: hidden;
+    cursor: pointer;
 }
 
 .btnFilter button, .btnFilter button:focus{
     height: 2.2rem;
     border: 0;
+    cursor: pointer;
 }
 
 .btnSelected{
     background-color: var(--gray-800);
     border: 0;
     border-image: none;
+    cursor: pointer;
 }
 
 
