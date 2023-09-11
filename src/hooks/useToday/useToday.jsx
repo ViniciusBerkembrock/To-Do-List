@@ -7,7 +7,7 @@ function useCurrentDate() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentDate(new Date());
-    }, 1000); // Atualize a data a cada segundo
+    }, 1000);
 
     return () => {
       clearInterval(intervalId);

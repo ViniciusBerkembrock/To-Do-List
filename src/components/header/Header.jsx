@@ -34,7 +34,7 @@ export function Header() {
 
     return(
         <header className={style.header}>
-            <h1>To Do List</h1>
+            <h1>TO DO LIST</h1>
             
             {currentUser? (
             <div className={style.profileBox}>
