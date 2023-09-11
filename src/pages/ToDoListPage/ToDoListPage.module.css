@@ -2,7 +2,6 @@
     display: grid;
     width: 100vw;
     grid-template-columns: 290px 1fr;
-    gap: 2rem;
     align-items: flex-start;
 }
 
