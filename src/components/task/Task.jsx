@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { getDoc, doc, deleteDoc, updateDoc, } from "firebase/firestore";
+import moment from 'moment'
 
 import { Trash, Lock, LockOpen, Square, CheckSquare, PencilSimpleLine, Check, X} from "phosphor-react";
 
@@ -66,7 +67,7 @@ const Task = ({ taskList }) => {
                     </div>
 
                     <span 
-                        className={style.taskDate}>Conclusão aguardada: {task.date}</span>
+                        className={style.taskDate}>Conclusão aguardada: {moment(task.date).format('L')}</span>
                     <span 
                         className={style.taskDescription}>{task.description}</span>
 
