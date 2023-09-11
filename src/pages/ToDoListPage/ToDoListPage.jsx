@@ -57,6 +57,7 @@ export function ToDoListPage() {
       }, [searchTerm, taskList, filterDone]);
     
     const onSubmitTask = async () => {
+        event.preventDefault();
         try{
             await addDoc(taskCollectionRef, {
                 title: newTaskTitle,
@@ -84,33 +85,42 @@ export function ToDoListPage() {
             <div className={style.taskArea}>   
                 <div className={style.teste}></div>     
                 <div className={style.newTask}>
-                    <input 
-                        type="text" 
-                        placeholder="Título"
-                        value={newTaskTitle}
-                        onChange={(e) => setNewTaskTitle(e.target.value)}
-                        />
+                    <form 
+                        onSubmit={onSubmitTask}
+                        className={style.formNewTask}>
+                        <input 
+                            type="text" 
+                            required
+                            placeholder="Título"
+                            value={newTaskTitle}
+                            onChange={(e) => setNewTaskTitle(e.target.value)}
+                            />
 
-                     <textarea  
-                        className={style.textArea}
-                        value={newTaskDescription}
-                        maxLength="400"
-                        type="text" 
-                        placeholder="Descrição"
-                        onChange={(e) => setNewTaskDescription(e.target.value)}
-                        />  
+                        <textarea  
+                            className={style.textArea}
+                            value={newTaskDescription}
+                            
+                            required
+                            maxLength="400"
+                            type="text" 
+                            placeholder="Descrição"
+                            onChange={(e) => setNewTaskDescription(e.target.value)}
+                            />  
 
-                    <input 
-                        type="date" 
-                        min={currentDate}
-                        value={newTaskDate}
-                        placeholder="Descrição"
-                        onChange={(e) => setNewTaskDate(e.target.value)}
-                        />        
-                    <button 
-                        onClick={onSubmitTask}
-                        className={style.btnAddTask}>Salvar Tarefa
-                    </button>
+                        <input 
+                            type="date" 
+                            
+                            required
+                            min={currentDate}
+                            value={newTaskDate}
+                            placeholder="Descrição"
+                            onChange={(e) => setNewTaskDate(e.target.value)}
+                            />        
+                        <button 
+                            type='submit'
+                            className={style.btnAddTask}>Salvar Tarefa
+                        </button>
+                    </form>
                 </div>
 
                 <div className={style.searchBox}>
