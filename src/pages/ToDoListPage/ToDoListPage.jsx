@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, serverTimestamp } from "firebase/firestore";
 
-import { db } from "../../../firebase"
+import { auth, db } from "../../../firebase"
 import useGetUsers from '../../hooks/useGetUsers/useGetUsers'
 import TeamList from "../../components/teamList/TeamList"
 import Task from "../../components/task/Task";
@@ -21,30 +21,35 @@ export function ToDoListPage() {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [taskListFiltered, setTaskListFiltered] = useState([]);
+    const [filterDone, setFilterDone] = useState(null)
     
     useEffect(() => {
         const unsubscribe = onSnapshot(taskCollectionRef, (snapshot) => {
-            const updatedMovies = snapshot.docs.map((doc) => ({
+            const snapshotTasks = snapshot.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id,
             }));
-            setTaskList(updatedMovies);
+            const emOrdem = Object.values(snapshotTasks).sort((a, b) => {
+                if (a.done === b.done) {
+                  return b.create - a.create;
+                }
+                return a.done ? 1 : -1;
+              });
+            setTaskList(emOrdem);
         });
     
         return () => unsubscribe();
     }, []);
 
     useEffect(() => {
-        if (searchTerm) {
-            setTaskListFiltered(
-              taskList.filter((task) =>
-                task.title.toLowerCase().includes(searchTerm.toLowerCase())
-              )
-            );
-        } else {
-            setTaskListFiltered(taskList);
-        }
-    },[searchTerm, taskList]);
+        const filteredTasks = taskList.filter((task) => {
+          const matchesSearch = !searchTerm || task.title.toLowerCase().includes(searchTerm.toLowerCase());
+          const matchesDone = filterDone === null || task.done === filterDone;
+          return matchesSearch && matchesDone;
+        });
+      
+        setTaskListFiltered(filteredTasks);
+      }, [searchTerm, taskList, filterDone]);
     
     const onSubmitTask = async () => {
         try{
@@ -53,7 +58,9 @@ export function ToDoListPage() {
                 description: newTaskDescription,
                 date: newTaskDate,
                 done: false,
-                block: false
+                block: false,
+                uid: auth.currentUser.uid,
+                create: serverTimestamp()
             });
         } catch(err){
             console.error(err)
@@ -66,7 +73,8 @@ export function ToDoListPage() {
                 <TeamList users={userList}/>
             </div>
 
-            <div className={style.taskArea}>        
+            <div className={style.taskArea}>   
+                <div className={style.teste}></div>     
                 <div className={style.newTask}>
                     <input 
                         type="text" 
@@ -98,6 +106,17 @@ export function ToDoListPage() {
                         value={searchTerm} 
                         onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder='Titulo da tarefa...'/>
+
+                        <div className={style.btnFilter}>
+                            <button className={filterDone? style.btnSelected : style.btn} onClick={() => setFilterDone(true)}>Concluídas</button>
+                            
+                            <button className={filterDone == false? style.btnSelected : style.btn} onClick={() => setFilterDone(false)}>Não Concluídas</button>
+                            
+                            <button className={filterDone == null? style.btnSelected : style.btn} onClick={() => setFilterDone(null)}>Todas</button>
+
+                        </div>
+
+                        
                 </div>
 
                 <Task taskList={taskListFiltered}/>
