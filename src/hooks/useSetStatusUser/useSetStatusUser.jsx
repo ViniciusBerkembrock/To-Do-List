@@ -8,7 +8,7 @@ const useSetStatusUser = () => {
     const { userList } = useGetUsers();
   
     const updateUserStatus = async (newStatus) => {
-      if (auth.currentUser && userList != null) {
+      if (auth?.currentUser && userList != null) {
         const usuario = userList.find((item) => item.email === auth.currentUser.email);
         if (usuario) {
           const usuarioDoc = doc(db, "users", usuario.id);
