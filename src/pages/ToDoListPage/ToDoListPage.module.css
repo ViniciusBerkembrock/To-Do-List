@@ -37,12 +37,17 @@
     align-items: center;
 }
 
-.newTask input, .inputBox input, .searchBox input{
+.newTask input, textarea, .inputBox input, .searchBox input{
     line-height: 2rem;
     width: 30rem;
     border-radius: 8px;
     border: 1px solid var(--green-300);
     padding: 0.25rem;
+    resize: none;
+}
+
+.textArea{
+    line-height: 1.2rem;
 }
 
 .btnAddTask{

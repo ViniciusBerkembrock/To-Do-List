@@ -7,7 +7,7 @@ import TeamList from "../../components/teamList/TeamList"
 import Task from "../../components/task/Task";
 
 import style from './ToDoListPage.module.css'
-import useSetStatusUser from '../../hooks/useSetStatusUser/useSetStatusUser';
+import useCurrentDate from '../../hooks/useToday/useToday';
 
 export function ToDoListPage() {
     
@@ -16,13 +16,15 @@ export function ToDoListPage() {
 
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const [newTaskDescription, setNewTaskDescription] = useState("");
-    const [newTaskDate, setNewTaskDate] = useState();
+    const [newTaskDate, setNewTaskDate] = useState("");
     
     const [taskList, setTaskList] = useState([]);
 
     const [searchTerm, setSearchTerm] = useState('');
     const [taskListFiltered, setTaskListFiltered] = useState([]);
     const [filterDone, setFilterDone] = useState(null)
+
+    const currentDate = useCurrentDate();
 
 
     
@@ -65,6 +67,9 @@ export function ToDoListPage() {
                 uid: auth.currentUser.uid,
                 create: serverTimestamp()
             });
+            setNewTaskTitle("")
+            setNewTaskDescription("")
+            setNewTaskDate("")
         } catch(err){
             console.error(err)
         }
@@ -82,10 +87,14 @@ export function ToDoListPage() {
                     <input 
                         type="text" 
                         placeholder="Título"
+                        value={newTaskTitle}
                         onChange={(e) => setNewTaskTitle(e.target.value)}
                         />
 
-                     <input 
+                     <textarea  
+                        className={style.textArea}
+                        value={newTaskDescription}
+                        maxLength="400"
                         type="text" 
                         placeholder="Descrição"
                         onChange={(e) => setNewTaskDescription(e.target.value)}
@@ -93,6 +102,8 @@ export function ToDoListPage() {
 
                     <input 
                         type="date" 
+                        min={currentDate}
+                        value={newTaskDate}
                         placeholder="Descrição"
                         onChange={(e) => setNewTaskDate(e.target.value)}
                         />        
