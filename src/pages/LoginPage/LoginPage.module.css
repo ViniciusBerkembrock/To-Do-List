@@ -31,10 +31,12 @@ button{
 
 .btnSignIn{
     border-image: linear-gradient(to right, #00B37E, #E1E1E6) 1;
+    cursor: pointer;
 }
 
 .btnSignOut{
     border-image: linear-gradient(to right, #b33300, #E1E1E6) 1;
+    cursor: pointer;
 }
 
 .btnSignOut:focus{

@@ -99,7 +99,6 @@ export function ToDoListPage() {
                         <textarea  
                             className={style.textArea}
                             value={newTaskDescription}
-                            
                             required
                             maxLength="400"
                             type="text" 
