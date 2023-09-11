@@ -66,6 +66,7 @@ export function ToDoListPage() {
                 done: false,
                 block: false,
                 uid: auth.currentUser.uid,
+                photoURL: auth.currentUser.photoURL,
                 create: serverTimestamp()
             });
             setNewTaskTitle("")
@@ -83,8 +84,8 @@ export function ToDoListPage() {
             </div>
 
             <div className={style.taskArea}>   
-                <div className={style.teste}></div>     
                 <div className={style.newTask}>
+                    <h1>Adicionar Tarefas</h1>    
                     <form 
                         onSubmit={onSubmitTask}
                         className={style.formNewTask}>

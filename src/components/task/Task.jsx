@@ -7,12 +7,16 @@ import { Trash, Lock, LockOpen, Square, CheckSquare, PencilSimpleLine, Check, X}
 import AuthContext from "../../context/AuthContext";
 import { db } from "../../../firebase"
 import EditTask from "../editTask/EditTask";
+// import useGetUsers from '../../hooks/useGetUsers/useGetUsers'
 
 import style from './task.module.css'
 
 const Task = ({ taskList }) => {
 
     const { currentUser } = useContext(AuthContext);
+    // const { userList } = useGetUsers();
+
+    
 
     const [editingTask, setEditingTask] = useState(null);
 
@@ -55,8 +59,11 @@ const Task = ({ taskList }) => {
                     className={style.task}>
                     
                     <div className={style.header}>
-                        <h1 
-                            className={style.taskTitle}>{task.title}</h1>
+                        <div className={style.headerMainInfo}>
+                        <img className={style.avatar} src={task.photoURL} alt="" />
+                        <h1 className={style.taskTitle}>{task.title}</h1>
+
+                        </div>
                         <button
                             onClick={() => handleFinishTask(task.id)}
                             disabled={task.uid !== currentUser.uid && task.block == true}

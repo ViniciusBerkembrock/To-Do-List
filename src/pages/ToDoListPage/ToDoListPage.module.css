@@ -3,6 +3,7 @@
     width: 100vw;
     grid-template-columns: 290px 1fr;
     align-items: flex-start;
+    overflow-x: hidden;
 }
 
 .teamList{
@@ -15,12 +16,14 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: calc(100vw - 300px);
+    width: calc(100vw - 290px);
     height: 100%;
     background-image: url(C:\Users\Usuário\Documents\To-Do-List\src\assets\bg.jpg);
     background-size: cover; 
     background-attachment: fixed; 
     background-color: rgba(255, 255, 255, 0.5); 
+    line-height: 1.2rem;
+    height: 6rem;
 }
 
 
@@ -49,17 +52,13 @@
     resize: none;
 }
 
-.textArea{
-    line-height: 1.2rem;
-}
-
 .btnAddTask{
     width: 30rem;
     cursor: pointer;
 }
 
-.searchBox h1{
-    font-size: 1.2rem;
+.searchBox h1, .newTask h1{
+    font-size: 1.5rem;
 }
 
 .btnFilter{
